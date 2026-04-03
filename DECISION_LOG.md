@@ -31,7 +31,7 @@ Ação paralela: o que deve ser feito antes de integrar
 - Usar VCIA como nome técnico interno e criar nome público diferente
 - Definir nome completamente novo baseado na tese do projeto
 
-**Ação paralela:** criar documento `docs/naming-positioning.md` com análise de opções antes de tomar decisão.
+**Ação paralela:** preencher `docs/naming-positioning.md` com análise de opções antes de tomar decisão.
 
 ---
 
@@ -48,7 +48,7 @@ Ação paralela: o que deve ser feito antes de integrar
 - Stack completa inspirada no SetupVibe (todos os módulos)
 - Stack proprietária baseada nas ferramentas já usadas pelo operador
 
-**Ação paralela:** levantar stack atual real do operador e mapear delta em relação à referência SetupVibe.
+**Ação paralela:** preencher `docs/stack-blueprint.md` — coluna Status para cada ferramenta. Quando todas saírem de `placeholder`, D002 está pronta para decisão.
 
 ---
 
@@ -65,38 +65,72 @@ Ação paralela: o que deve ser feito antes de integrar
 - Reinterpretar a estrutura mantendo padrões de copy que funcionam
 - Usar a referência como rascunho e editar progressivamente
 
-**Ação paralela:** criar tabela copiar / reinterpretar / descartar para cada elemento extraído.
+**Ação paralela:** completar tabela copiar/reinterpretar/descartar em `docs/reference-extraction.md`.
 
 ---
 
 ## D004 — Ambiente principal de implementação
 
-**Status:** ABERTO
+**Status:** DECIDIDO  
+**Decisão:** Replit para prototipagem inicial (Phase 3)  
+**Decidido por:** operador  
+**Data:** 03/04/26
 
-**Pergunta:** onde a fase de implementação será conduzida inicialmente?
+**Pergunta original:** onde a fase de implementação será conduzida inicialmente?
 
-**Impacto:** Phase 3, protocolo de agentes, integração com GitHub.
+**Racional:** velocidade de validação visual e facilidade de compartilhamento para feedback rápido. O Replit não é o destino final — é a arena de validação do prototype antes de qualquer ambiente de produção.
 
-**Opções:**
-- Replit (prototipagem rápida, sem config local)
-- IDE local com sync para GitHub (VSCode / Cursor)
-- GitHub Codespaces (ambiente cloud gerenciado)
-
-**Ação paralela:** validar se o ambiente escolhido suporta o fluxo agêntico desejado antes de iniciar Phase 3.
+**Alternativas descartadas:**
+- IDE local: requer config, menos ágil para validação visual
+- GitHub Codespaces: overhead de configuração desnecessário na fase de prototipagem
 
 ---
 
 ## D005 — Protocolo de escalonamento dos agentes
 
-**Status:** ABERTO
+**Status:** DECIDIDO  
+**Decisão:** agente pausa, registra no DECISION_LOG e oferece 2-3 opções ao operador antes de prosseguir em decisões estruturais; continua com tasks independentes se a lacuna não bloquear tudo  
+**Decidido por:** operador  
+**Data:** 03/04/26
 
-**Pergunta:** quando um agente encontra uma lacuna ou decisão aberta, qual é o protocolo padrão?
+**Pergunta original:** quando um agente encontra uma lacuna ou decisão aberta, qual é o protocolo padrão?
 
-**Impacto:** Phase 3, AGENT_ONBOARDING.md, qualidade das entregas.
+**Ação paralela:** protocolo documentado em `AGENT_ONBOARDING.md` e `prompts/ide-agent-system.md`.
 
-**Opções:**
-- Agente pausa e registra no DECISION_LOG, aguarda operador
-- Agente assume a hipótese mais conservadora e sinaliza no output
-- Agente oferece 2-3 opções e solicita confirmação antes de prosseguir
+---
 
-**Ação paralela:** definir no AGENT_ONBOARDING.md o padrão esperado por tipo de lacuna.
+## Histórico de racional narrativo
+
+> Seção preservada do setupvibe-workflow — registra o racional qualitativo das primeiras decisões antes da formalização estrutural acima.
+
+### #ID 030426-152700 | SetupVibe como ponto de partida
+
+**Decisão:** usar o SetupVibe como referência estrutural e de posicionamento, não como template de cópia direta.  
+**Racional:** a proposta combina landing page de aquisição, documentação técnica e funil de comunidade de forma coesa. O valor para o workflow interno está na estrutura narrativa e no modelo em camadas, não nos assets visuais.  
+**Alternativas descartadas:**
+- Partir de template genérico de SaaS → perderia especificidade de dev tooling
+- Construir do zero sem referência → aumentaria tempo de validação do racional
+
+### #ID 030426-154300 | Onboarding como fechamento de contexto
+
+**Decisão:** tratar onboarding não como "boas-vindas" mas como mecanismo formal de fechamento de contexto antes da execução na IDE.  
+**Racional:** o processo de trabalho estabelecido (KTX, templates, prototipagem antes de MVP) exige que o contexto esteja canônico antes de delegar para agentes. Um repositório estruturado serve como SSOT para todos os agentes downstream.  
+**Alternativas descartadas:**
+- Ir direto para IDE sem documentar → perderia rastreabilidade
+- Documentar depois da prototipagem → agentes trabalhariam sem contexto estável
+
+### #ID 030426-164300 | Replit como ambiente de prototipagem (= D004 decidido)
+
+**Decisão:** Replit para Phase 3, antes de qualquer ambiente de produção.  
+**Tabela de bifurcação que levou à decisão:**
+
+| Critério | Partir para IDE | Iterar mais |
+|----------|----------------|-------------|
+| Racional documentado | ✅ | — |
+| Stack real definida | placeholders ⚠️ | seria necessário |
+| Identidade visual | não definida ⚠️ | opcional p/ prototype |
+| Comando de install | não testado ⚠️ | seria necessário p/ Fase 3+ |
+| Blocos da home | mapeados ✅ | — |
+| AGENT_ONBOARDING | completo ✅ | poderia refinar |
+
+**Conclusão:** partir para IDE com stack em placeholder é válido — o objetivo da Phase 3 é validar estrutura visual e narrativa. Identidade e comando real vêm na Phase 4.
